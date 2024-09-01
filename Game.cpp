@@ -122,9 +122,11 @@ void Game::timer(int value)
     glutPostRedisplay();          // Запрос на перерисовку
 
     long playerScore = player.getScore();
-    long countEnemys = (playerScore % 20) + 3;
+    long countEnemys = (playerScore / 20) + 3;
 
-    if (countEnemys < CountAllEnemys)
+    std::cout << CountAllEnemys << std::endl;
+
+    if (countEnemys > CountAllEnemys)
     {
         AddNewEnemy();
     }
