@@ -20,6 +20,7 @@ public:
     
 public:
     Enemy(const std::string& textureFile, float initialX, float initialY, float initWidth, float initHeigth, float movementSpeed, int initHeals);
+    ~Enemy();
     void update() override;
     // Функция для рисования границ
     void drawBoundaryLines();
@@ -67,8 +68,8 @@ public:
 class EnemyFabric
 {
 public: 
-    static std::unique_ptr<Enemy> CreatEnemyBird();
-    static std::unique_ptr<Enemy> CreatEnemyBomber();
-    static std::unique_ptr<Enemy> CreatEnemyFighter();
-    static std::unique_ptr<Enemy> CreateRandomEnemy();
+    static std::unique_ptr<Enemy> CreatEnemyBird(void* parent);
+    static std::unique_ptr<Enemy> CreatEnemyBomber(void* parent);
+    static std::unique_ptr<Enemy> CreatEnemyFighter(void* parent);
+    static std::unique_ptr<Enemy> CreateRandomEnemy(void* parent);
 };

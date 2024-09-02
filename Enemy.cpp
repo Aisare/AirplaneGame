@@ -9,6 +9,11 @@ Enemy::Enemy(const std::string& textureFile, float initialX, float initialY, flo
     speed = movementSpeed;
 }
 
+Enemy::~Enemy()
+{
+    parent = nullptr;
+}
+
 void Enemy::update()
 {
     Character::update();
@@ -25,7 +30,7 @@ void Enemy::update()
                     parent->player.takeDamage(1); // Игрок получает урон
                 }
             }
-
+            
             //проверка на колизию врага с игроком
             if (this->checkCollision(parent->player))
             {
@@ -233,30 +238,36 @@ void EnemyFighterType::onDodge()
     }
 }
 
-std::unique_ptr<Enemy> EnemyFabric::CreatEnemyBird()
+std::unique_ptr<Enemy> EnemyFabric::CreatEnemyBird(void* parent)
 {
-    return std::move(std::make_unique<EnemyBirdType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f));
+    std::unique_ptr<Enemy> resultEnemy = std::make_unique<EnemyBirdType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f);
+    resultEnemy->setParent(parent);
+    return std::move(resultEnemy);
 }
 
-std::unique_ptr<Enemy> EnemyFabric::CreatEnemyBomber()
+std::unique_ptr<Enemy> EnemyFabric::CreatEnemyBomber(void* parent)
 {
-    return std::move(std::make_unique<EnemyBomberType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f));
+    std::unique_ptr<Enemy> resultEnemy = std::make_unique<EnemyBomberType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f);
+    resultEnemy->setParent(parent);
+    return std::move(resultEnemy);
 }
 
-std::unique_ptr<Enemy> EnemyFabric::CreatEnemyFighter()
+std::unique_ptr<Enemy> EnemyFabric::CreatEnemyFighter(void* parent)
 {
-    return std::move(std::make_unique<EnemyFighterType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f));
+    std::unique_ptr<Enemy> resultEnemy = std::make_unique<EnemyFighterType>(1.0f, (rand() / (float)RAND_MAX) * 2.0f - 1.0f);
+    resultEnemy->setParent(parent);
+    return std::move(resultEnemy);
 }
 
-std::unique_ptr<Enemy> EnemyFabric::CreateRandomEnemy()
+std::unique_ptr<Enemy> EnemyFabric::CreateRandomEnemy(void* parent)
 {
     int randomValue = rand() % 3;
     std::unique_ptr<Enemy> resultEnemy;
     switch (randomValue)
     {
-    case 0: resultEnemy = CreatEnemyBird(); break;
-    case 1: resultEnemy = CreatEnemyBomber(); break;
-    case 2: resultEnemy = CreatEnemyFighter(); break;
+    case 0: resultEnemy = CreatEnemyBird(parent); break;
+    case 1: resultEnemy = CreatEnemyBomber(parent); break;
+    case 2: resultEnemy = CreatEnemyFighter(parent); break;
     }
 
     return std::move(resultEnemy);

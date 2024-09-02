@@ -50,18 +50,13 @@ void Game::init()
     meteor.load(PathToMeteor);
     meteor.setParent(this);
 
-    Enemys.push_back(EnemyFabric::CreatEnemyBird());
-    Enemys.push_back(EnemyFabric::CreatEnemyBomber());
-    Enemys.push_back(EnemyFabric::CreatEnemyFighter());
+    Enemys.push_back(EnemyFabric::CreatEnemyBird(this));
+    Enemys.push_back(EnemyFabric::CreatEnemyBomber(this));
+    Enemys.push_back(EnemyFabric::CreatEnemyFighter(this));
 
     CountAllEnemys = Enemys.size();
 
-    for (auto& itm : Enemys)
-    {
-        itm->setParent(this);
-    }
-
-    mainMenu.AddButtons(Button(0.0f, 0.75f, 0.6f, 0.3f, PathToButtonsImages[0], [&]() { player.setScore(0); resetAll(); gameState = GameState::PLAYING; }));
+    mainMenu.AddButtons(Button(0.0f, 0.75f, 0.6f, 0.3f, PathToButtonsImages[0], [&]() { player.setScore(0); player.setHealPoints(3); resetAll(); gameState = GameState::PLAYING; }));
     mainMenu.AddButtons(Button(0.0f, 0.35f, 0.6f, 0.3f, PathToButtonsImages[1], [&]() { controlsHepls.StepsHelp = -1; controlsHepls.NextSlide(); gameState = GameState::CONTROLS; }));
     mainMenu.AddButtons(Button(0.0f, -0.35f, 0.6f, 0.3f, PathToButtonsImages[2], [&]() {  exit(0); }));
 
@@ -124,8 +119,6 @@ void Game::timer(int value)
     long playerScore = player.getScore();
     long countEnemys = (playerScore / 20) + 3;
 
-    std::cout << CountAllEnemys << std::endl;
-
     if (countEnemys > CountAllEnemys)
     {
         AddNewEnemy();
@@ -137,7 +130,7 @@ void Game::timer(int value)
 
 void Game::AddNewEnemy()
 {
-    Enemys.push_back(EnemyFabric::CreateRandomEnemy());
+    Enemys.push_back(EnemyFabric::CreateRandomEnemy(this));
     CountAllEnemys = Enemys.size();
 }
 
@@ -161,9 +154,9 @@ void Game::setGameStatus(GameState state)
 void Game::resetAll()
 {
     Enemys.clear();
-    Enemys.push_back(EnemyFabric::CreatEnemyBird());
-    Enemys.push_back(EnemyFabric::CreatEnemyBomber());
-    Enemys.push_back(EnemyFabric::CreatEnemyFighter());
+    Enemys.push_back(EnemyFabric::CreatEnemyBird(this));
+    Enemys.push_back(EnemyFabric::CreatEnemyBomber(this));
+    Enemys.push_back(EnemyFabric::CreatEnemyFighter(this));
     CountAllEnemys = Enemys.size();
     meteor.dead();
 }

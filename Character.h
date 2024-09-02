@@ -55,6 +55,8 @@ public:
     virtual void onDodge();
     virtual bool isEvased();
 
+    virtual void setHealPoints(int count);
+
     virtual void setParametrs(float setX, float setY, float setWidth, float setHeight, float setSpeedX, float setSpeedY);
     virtual void setPosition(float setX, float setY);
 

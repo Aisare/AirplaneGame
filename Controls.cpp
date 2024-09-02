@@ -16,13 +16,12 @@ void Controls::init(Game* _parent)
 
 	player.load(PathToPlayerImage[0], PathToPlayerImage[1]);
 	player.setParent(nullptr);
-	Enemys.push_back(EnemyFabric::CreatEnemyBird());
-	Enemys.push_back(EnemyFabric::CreatEnemyBomber());
-	Enemys.push_back(EnemyFabric::CreatEnemyFighter());
+	Enemys.push_back(EnemyFabric::CreatEnemyBird(nullptr));
+	Enemys.push_back(EnemyFabric::CreatEnemyBomber(nullptr));
+	Enemys.push_back(EnemyFabric::CreatEnemyFighter(nullptr));
 
 	for (auto& itm : Enemys)
 	{
-		itm->setParent(nullptr);
 		itm->setPosition(1.5f, 0.0f);
 	}
 

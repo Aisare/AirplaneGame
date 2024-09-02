@@ -150,7 +150,6 @@ void Player::dead()
 	{
 		parent->GameOver.setText(0,"   Your Score: " + std::to_string(score));
 		parent->setGameStatus(GameState::GAME_OVER);
-		parent->resetAll();
 	}
 }
 

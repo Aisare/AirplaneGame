@@ -3,7 +3,7 @@
 #include "Game.h"
 
 Meteor::Meteor()
-	:Character(1.0f, 1.5f, 0.5f, 0.5f, 1)
+	:Character(1.0f, 1.5f, 0.4f, 0.4f, 1)
 {
 	speed = 0.005f;
 }
