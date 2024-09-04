@@ -85,8 +85,6 @@ bool Character::takeDamage(int damage)
 
 bool Character::checkCollision(const Bullet& b)
 {
-    if ((&b) == nullptr) return false;
-
     float leftA, rightA, topA, bottomA;
     float leftB, rightB, topB, bottomB;
 
@@ -99,8 +97,6 @@ bool Character::checkCollision(const Bullet& b)
 
 bool Character::checkCollision(const Character& a)
 {
-    if ((&a) == nullptr) return false;
-
     float leftA, rightA, topA, bottomA;
     float leftB, rightB, topB, bottomB;
 
